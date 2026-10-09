@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard harian: jam, focus timer, daftar tugas, dan tautan cepat.">
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme toggle button -->
+  <button type="button" id="theme-toggle" class="theme-toggle">Dark Mode</button>
+
+  <main class="dashboard">
+
+    <!-- Clock & greeting -->
+    <header class="card hero">
+      <time id="clock" class="hero__clock">00:00:00</time>
+      <time id="date" class="hero__date"></time>
+      <h1 id="greeting" class="hero__greeting">Good Morning</h1>
+    </header>
+
+    <div class="dashboard__columns">
+      <div class="dashboard__column">
+
+        <!-- Focus timer -->
+        <section class="card timer" aria-labelledby="timer-title">
+          <h2 id="timer-title" class="card__title">Focus Timer</h2>
+          <p id="timer-display" class="timer__display" role="timer">25:00</p>
+          <div class="timer__controls">
+            <button type="button" id="timer-start" class="btn btn--primary">Start</button>
+            <button type="button" id="timer-stop" class="btn btn--ghost">Stop</button>
+            <button type="button" id="timer-reset" class="btn btn--ghost">Reset</button>
+          </div>
+        </section>
+
+        <!-- Quick links -->
+        <section class="card links" aria-labelledby="links-title">
+          <h2 id="links-title" class="card__title">Quick Links</h2>
+
+          <form id="link-form" class="form form--links">
+            <label class="visually-hidden" for="link-name">Nama link</label>
+            <input type="text" id="link-name" name="name" placeholder="Link name" autocomplete="off" required>
+
+            <label class="visually-hidden" for="link-url">URL</label>
+            <input type="text" id="link-url" name="url" placeholder="URL" inputmode="url" autocomplete="off" required>
+
+            <button type="submit" class="btn btn--primary">Add Link</button>
+          </form>
+
+          <nav aria-label="Quick links">
+            <ul id="link-list" class="link-list"></ul>
+          </nav>
+        </section>
+      </div>
+
+      <div class="dashboard__column">
+
+        <!-- Tasks -->
+        <section class="card tasks" aria-labelledby="tasks-title">
+          <h2 id="tasks-title" class="card__title">Tasks</h2>
+
+          <form id="task-form" class="form form--tasks">
+            <label class="visually-hidden" for="task-input">Tugas baru</label>
+            <input type="text" id="task-input" name="task" placeholder="Add a new task..." autocomplete="off" required>
+            <button type="submit" class="btn btn--primary">Add</button>
+          </form>
+
+          <ul id="task-list" class="task-list"></ul>
+          <p id="task-empty" class="empty" hidden>Belum ada tugas. Tambahkan satu di atas.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <template id="task-template">
+    <li class="task">
+      <label class="task__label">
+        <input type="checkbox" class="task__checkbox">
+        <span class="task__text"></span>
+      </label>
+      <button type="button" class="btn btn--danger" data-action="delete">Delete</button>
+    </li>
+  </template>
+
+  <template id="link-template">
+    <li class="link">
+      <a class="link__anchor" target="_blank" rel="noopener noreferrer"></a>
+      <button type="button" class="link__remove" data-action="remove">&times;</button>
+    </li>
+  </template>
+   
+  <script src="script.js"></script>
+
+  <!-- Set the saved theme before first paint to avoid a flash. -->
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem('ld_theme'); } catch (error) {}
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</body>
+</html>

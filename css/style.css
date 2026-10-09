@@ -1,0 +1,354 @@
+/* ==========================================================================
+   Life Dashboard
+   1. Tokens   2. Base   3. Layout   4. Components   5. Utilities   6. Responsive
+   ========================================================================== */
+
+/* 1. Tokens ---------------------------------------------------------------- */
+:root {
+  --font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --space-sm: 10px;
+  --space-md: 18px;
+  --space-lg: 28px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+
+  --color-bg: linear-gradient(160deg, #f4f6ff 0%, #e9edfb 55%, #dde3f7 100%);
+  --color-card: rgba(255, 255, 255, 0.92);
+  --color-text: #111;
+  --color-muted: #555;
+  --color-accent: #4a4fd0;
+  --color-primary: #3f51c9;
+  --color-danger: #c9453a;
+  --color-input-bg: rgba(255, 255, 255, 0.8);
+  --color-input-border: #4a55c0;
+  --color-line: #aaa;
+  --color-ghost-bg: rgba(0, 0, 0, 0.05);
+  --color-ghost-text: #222;
+  --color-remove-bg: #1d2b5e;
+  --shadow-card: 0 4px 14px rgba(40, 50, 120, 0.12);
+}
+
+:root[data-theme="dark"] {
+  --color-bg: linear-gradient(160deg, #12141f 0%, #0c0e16 60%, #07080d 100%);
+  --color-card: rgba(30, 34, 52, 0.92);
+  --color-text: #eceefa;
+  --color-muted: #a3a8c3;
+  --color-accent: #8d94ff;
+  --color-input-bg: rgba(255, 255, 255, 0.06);
+  --color-input-border: #5b66d6;
+  --color-line: #5c6180;
+  --color-ghost-bg: rgba(255, 255, 255, 0.08);
+  --color-ghost-text: #e3e5f5;
+  --color-remove-bg: #0b0d18;
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. Base ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  padding: 12px;
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background: var(--color-bg) fixed;
+  transition: background 0.3s, color 0.3s;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid #ffb703;
+  outline-offset: 2px;
+}
+
+/* 3. Layout ---------------------------------------------------------------- */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 44px;
+}
+
+.dashboard__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.dashboard__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* 4. Components ------------------------------------------------------------ */
+
+/* Card */
+.card {
+  padding: 24px var(--space-lg);
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.card__title {
+  margin-bottom: var(--space-md);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Buttons */
+.btn {
+  padding: var(--space-sm) var(--space-md);
+  font-size: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+.btn--primary {
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.btn--ghost {
+  color: var(--color-ghost-text);
+  background: var(--color-ghost-bg);
+}
+
+.btn--danger {
+  padding: 6px 14px;
+  font-size: 13px;
+  color: #fff;
+  background: var(--color-danger);
+}
+
+/* Theme toggle */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-card);
+  border: none;
+  border-radius: 999px;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+/* Forms */
+.form {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: 20px;
+}
+
+.form input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-sm) 12px;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.form input::placeholder {
+  color: var(--color-muted);
+}
+
+.form--tasks input {
+  background: var(--color-input-bg);
+  border: 2px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+}
+
+.form--links input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-line);
+  border-radius: 0;
+}
+
+/* Hero (clock & greeting) */
+.hero {
+  padding: 38px 20px 34px;
+  text-align: center;
+}
+
+.hero__clock {
+  display: block;
+  font-size: 52px;
+  letter-spacing: 1px;
+  color: var(--color-accent);
+}
+
+.hero__date {
+  display: block;
+  margin-top: 6px;
+  font-size: 17px;
+  color: var(--color-muted);
+}
+
+.hero__greeting {
+  margin-top: var(--space-md);
+  font-size: 32px;
+}
+
+/* Timer */
+.timer {
+  text-align: center;
+}
+
+.timer__display {
+  margin-bottom: var(--space-md);
+  font-size: 64px;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer__controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* Tasks */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task__label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.task__checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.task__text {
+  word-break: break-word;
+}
+
+.task--done .task__text {
+  color: var(--color-muted);
+  text-decoration: line-through;
+}
+
+.empty {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* Quick links */
+.link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.link {
+  position: relative;
+  flex: 1 1 140px;
+}
+
+.link__anchor {
+  display: block;
+  padding: 14px var(--space-sm);
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.link__anchor:hover {
+  filter: brightness(1.1);
+}
+
+.link__remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+  background: var(--color-remove-bg);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* 5. Utilities ------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 6. Responsive & motion --------------------------------------------------- */
+@media (max-width: 760px) {
+  .dashboard__columns {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__clock {
+    font-size: 40px;
+  }
+
+  .form--links {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
